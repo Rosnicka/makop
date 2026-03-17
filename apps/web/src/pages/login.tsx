@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom'
 import { supabase } from '@/lib/supabase'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { MakopLogo } from '@/components/MakopLogo'
 
 type Mode = 'login' | 'register'
 
@@ -42,19 +41,19 @@ export default function LoginPage() {
     <div className="min-h-screen flex items-center justify-center p-4">
       <div className="glass-card rounded-2xl w-full max-w-sm p-8">
         <div className="text-center mb-8">
-          <MakopLogo className="text-4xl" />
-          <p className="text-xs text-yellow-400/60 tracking-widest uppercase font-medium mt-1">Sunday League Manager</p>
+          <h1 className="text-4xl font-black tracking-widest uppercase glow-text mb-1">Makop</h1>
+          <p className="text-xs text-emerald-600 tracking-widest uppercase font-medium">Sunday League Manager</p>
         </div>
 
-        <div className="flex bg-yellow-400/5 rounded-xl p-1 mb-6 border border-yellow-400/10">
+        <div className="flex bg-emerald-50 rounded-xl p-1 mb-6 border border-emerald-100">
           {(['login', 'register'] as const).map((m) => (
             <button
               key={m}
               onClick={() => { setMode(m); setError(null) }}
               className={`flex-1 py-1.5 text-sm font-medium rounded-lg transition-all duration-150 ${
                 mode === m
-                  ? 'bg-yellow-400 text-black shadow-sm'
-                  : 'text-yellow-200/50 hover:text-yellow-200'
+                  ? 'bg-white text-emerald-700 shadow-sm border border-emerald-200'
+                  : 'text-slate-500 hover:text-slate-700'
               }`}
             >
               {m === 'login' ? 'Přihlášení' : 'Registrace'}
@@ -65,25 +64,25 @@ export default function LoginPage() {
         <form onSubmit={handleSubmit} className="space-y-4">
           {mode === 'register' && (
             <div className="space-y-1.5">
-              <Label htmlFor="name" className="text-xs font-semibold uppercase tracking-wider text-yellow-200/60">Jméno</Label>
-              <Input id="name" value={name} onChange={(e) => setName(e.target.value)} required className="bg-yellow-400/5 border-yellow-400/15 text-yellow-50 placeholder:text-yellow-200/25" />
+              <Label htmlFor="name" className="text-xs font-semibold uppercase tracking-wider text-slate-600">Jméno</Label>
+              <Input id="name" value={name} onChange={(e) => setName(e.target.value)} required className="bg-white/70" />
             </div>
           )}
           <div className="space-y-1.5">
-            <Label htmlFor="email" className="text-xs font-semibold uppercase tracking-wider text-yellow-200/60">Email</Label>
-            <Input id="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} required className="bg-yellow-400/5 border-yellow-400/15 text-yellow-50 placeholder:text-yellow-200/25" />
+            <Label htmlFor="email" className="text-xs font-semibold uppercase tracking-wider text-slate-600">Email</Label>
+            <Input id="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} required className="bg-white/70" />
           </div>
           <div className="space-y-1.5">
-            <Label htmlFor="password" className="text-xs font-semibold uppercase tracking-wider text-yellow-200/60">Heslo</Label>
-            <Input id="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} required className="bg-yellow-400/5 border-yellow-400/15 text-yellow-50 placeholder:text-yellow-200/25" />
+            <Label htmlFor="password" className="text-xs font-semibold uppercase tracking-wider text-slate-600">Heslo</Label>
+            <Input id="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} required className="bg-white/70" />
           </div>
           {error && (
-            <p className="text-sm text-rose-400 bg-rose-400/10 border border-rose-400/20 rounded-xl px-3 py-2">{error}</p>
+            <p className="text-sm text-rose-600 bg-rose-50 border border-rose-200 rounded-xl px-3 py-2">{error}</p>
           )}
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-2.5 rounded-xl bg-yellow-400 hover:bg-yellow-300 active:bg-yellow-500 text-black font-bold transition-all duration-150 shadow-sm shadow-yellow-400/20 disabled:opacity-60"
+            className="w-full py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 active:bg-emerald-700 text-white font-semibold transition-all duration-150 shadow-sm shadow-emerald-200 disabled:opacity-60"
           >
             {loading ? '...' : mode === 'login' ? 'Přihlásit se' : 'Registrovat se'}
           </button>
@@ -92,7 +91,7 @@ export default function LoginPage() {
           <div className="mt-4 text-center">
             <button
               onClick={() => navigate('/forgot-password')}
-              className="text-xs text-yellow-200/40 hover:text-yellow-400 transition-colors"
+              className="text-xs text-slate-500 hover:text-emerald-600 transition-colors"
             >
               Zapomenuté heslo?
             </button>
