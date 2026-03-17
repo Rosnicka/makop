@@ -3,6 +3,7 @@ import { useAuth } from '@/contexts/AuthContext'
 import { supabase } from '@/lib/supabase'
 import { useEvents, useSetAttendance } from '@/hooks/useEvents'
 import { Button } from '@/components/ui/button'
+import { RunningPlayerLoader } from '@/components/RunningPlayerLoader'
 
 const STATUS_LABELS = { going: 'Jdu', not_going: 'Nejdu', maybe: 'Nevím' }
 
@@ -64,8 +65,8 @@ export default function HomePage() {
 
         {/* Loading */}
         {isLoading && (
-          <div className="glass-card rounded-2xl p-8 text-center text-sm text-slate-500">
-            Načítání...
+          <div className="glass-card rounded-2xl">
+            <RunningPlayerLoader />
           </div>
         )}
 
