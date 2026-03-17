@@ -1,4 +1,4 @@
-import { pgTable, text, timestamp, uuid, pgEnum } from 'drizzle-orm/pg-core'
+import { pgTable, text, timestamp, uuid, pgEnum, primaryKey } from 'drizzle-orm/pg-core'
 
 export const roleEnum = pgEnum('role', ['captain', 'player'])
 
@@ -23,7 +23,8 @@ export const attendanceStatusEnum = pgEnum('attendance_status', [
 
 export const events = pgTable('events', {
   id: uuid('id').primaryKey().defaultRandom(),
-  title: text('title').notNull(),
+  teamId: uuid('team_id').notNull().references(() => teams.id, { onDelete: 'cascade' }),
+  opponent: text('opponent').notNull(),
   date: timestamp('date', { withTimezone: true }).notNull(),
   location: text('location').notNull(),
   description: text('description'),
@@ -37,7 +38,7 @@ export const attendance = pgTable('attendance', {
     .references(() => events.id, { onDelete: 'cascade' }),
   userId: uuid('user_id').notNull(),
   status: attendanceStatusEnum('status').notNull(),
-})
+}, (t) => [primaryKey({ columns: [t.eventId, t.userId] })])
 
 export const chatMessages = pgTable('chat_messages', {
   id: uuid('id').primaryKey().defaultRandom(),

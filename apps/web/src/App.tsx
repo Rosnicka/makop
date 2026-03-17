@@ -1,8 +1,11 @@
 import { Routes, Route, Navigate } from 'react-router-dom'
+import { QueryClientProvider } from '@tanstack/react-query'
+import { queryClient } from '@/lib/queryClient'
 import { AuthProvider, useAuth } from '@/contexts/AuthContext'
 import LoginPage from '@/pages/login'
 import HomePage from '@/pages/home'
 import CreateTeamPage from '@/pages/create-team'
+import CreateEventPage from '@/pages/create-event'
 
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const { user, loading } = useAuth()
@@ -23,6 +26,7 @@ function AppRoutes() {
     <Routes>
       <Route path="/login" element={<PublicRoute><LoginPage /></PublicRoute>} />
       <Route path="/create-team" element={<ProtectedRoute><CreateTeamPage /></ProtectedRoute>} />
+      <Route path="/events/new" element={<ProtectedRoute><CreateEventPage /></ProtectedRoute>} />
       <Route path="/" element={<ProtectedRoute><HomePage /></ProtectedRoute>} />
     </Routes>
   )
@@ -30,8 +34,10 @@ function AppRoutes() {
 
 export default function App() {
   return (
-    <AuthProvider>
-      <AppRoutes />
-    </AuthProvider>
+    <QueryClientProvider client={queryClient}>
+      <AuthProvider>
+        <AppRoutes />
+      </AuthProvider>
+    </QueryClientProvider>
   )
 }

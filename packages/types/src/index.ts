@@ -1,4 +1,5 @@
 export type Role = 'captain' | 'player'
+export type AttendanceStatus = 'going' | 'not_going' | 'maybe'
 
 export interface Team {
   id: string
@@ -16,10 +17,11 @@ export interface User {
 
 export interface Event {
   id: string
-  title: string
+  teamId: string
+  opponent: string
   date: string
   location: string
-  description?: string
+  description?: string | null
   createdBy: string
   createdAt: string
 }
@@ -27,7 +29,7 @@ export interface Event {
 export interface Attendance {
   eventId: string
   userId: string
-  status: 'going' | 'not_going' | 'maybe'
+  status: AttendanceStatus
 }
 
 export interface ChatMessage {

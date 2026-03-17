@@ -2,6 +2,7 @@ import { Hono } from 'hono'
 import { cors } from 'hono/cors'
 import { authMiddleware } from './middleware/auth.js'
 import teamsRoute from './routes/teams.js'
+import eventsRoute from './routes/events.js'
 
 type Variables = {
   userId: string
@@ -18,6 +19,7 @@ api.use('*', authMiddleware)
 
 api.get('/me', (c) => c.json({ userId: c.get('userId') }))
 api.route('/teams', teamsRoute)
+api.route('/events', eventsRoute)
 
 app.route('/api', api)
 
