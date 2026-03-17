@@ -1,4 +1,5 @@
 import { pgTable, text, timestamp, uuid, pgEnum, primaryKey } from 'drizzle-orm/pg-core'
+import { relations } from 'drizzle-orm'
 
 export const roleEnum = pgEnum('role', ['captain', 'player'])
 
@@ -39,6 +40,14 @@ export const attendance = pgTable('attendance', {
   userId: uuid('user_id').notNull(),
   status: attendanceStatusEnum('status').notNull(),
 }, (t) => [primaryKey({ columns: [t.eventId, t.userId] })])
+
+export const eventsRelations = relations(events, ({ many }) => ({
+  attendance: many(attendance),
+}))
+
+export const attendanceRelations = relations(attendance, ({ one }) => ({
+  event: one(events, { fields: [attendance.eventId], references: [events.id] }),
+}))
 
 export const chatMessages = pgTable('chat_messages', {
   id: uuid('id').primaryKey().defaultRandom(),
