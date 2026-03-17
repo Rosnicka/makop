@@ -87,6 +87,16 @@ export default function LoginPage() {
             {loading ? '...' : mode === 'login' ? 'Přihlásit se' : 'Registrovat se'}
           </button>
         </form>
+        {mode === 'login' && (
+          <div className="mt-4 text-center">
+            <button
+              onClick={() => navigate('/forgot-password')}
+              className="text-xs text-slate-500 hover:text-emerald-600 transition-colors"
+            >
+              Zapomenuté heslo?
+            </button>
+          </div>
+        )}
       </div>
     </div>
   )
