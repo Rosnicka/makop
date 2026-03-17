@@ -1,10 +1,8 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { supabase } from '@/lib/supabase'
-import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 
 type Mode = 'login' | 'register'
 
@@ -40,57 +38,56 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50">
-      <Card className="w-full max-w-sm">
-        <CardHeader>
-          <CardTitle>{mode === 'login' ? 'Přihlášení' : 'Registrace'}</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-4">
-            {mode === 'register' && (
-              <div className="space-y-1">
-                <Label htmlFor="name">Jméno</Label>
-                <Input
-                  id="name"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  required
-                />
-              </div>
-            )}
-            <div className="space-y-1">
-              <Label htmlFor="email">Email</Label>
-              <Input
-                id="email"
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
+    <div className="min-h-screen flex items-center justify-center p-4">
+      <div className="glass-card rounded-2xl w-full max-w-sm p-8">
+        <div className="text-center mb-8">
+          <h1 className="text-4xl font-black tracking-widest uppercase glow-text mb-1">Makop</h1>
+          <p className="text-xs text-emerald-600 tracking-widest uppercase font-medium">Sunday League Manager</p>
+        </div>
+
+        <div className="flex bg-emerald-50 rounded-xl p-1 mb-6 border border-emerald-100">
+          {(['login', 'register'] as const).map((m) => (
+            <button
+              key={m}
+              onClick={() => { setMode(m); setError(null) }}
+              className={`flex-1 py-1.5 text-sm font-medium rounded-lg transition-all duration-150 ${
+                mode === m
+                  ? 'bg-white text-emerald-700 shadow-sm border border-emerald-200'
+                  : 'text-slate-500 hover:text-slate-700'
+              }`}
+            >
+              {m === 'login' ? 'Přihlášení' : 'Registrace'}
+            </button>
+          ))}
+        </div>
+
+        <form onSubmit={handleSubmit} className="space-y-4">
+          {mode === 'register' && (
+            <div className="space-y-1.5">
+              <Label htmlFor="name" className="text-xs font-semibold uppercase tracking-wider text-slate-600">Jméno</Label>
+              <Input id="name" value={name} onChange={(e) => setName(e.target.value)} required className="bg-white/70" />
             </div>
-            <div className="space-y-1">
-              <Label htmlFor="password">Heslo</Label>
-              <Input
-                id="password"
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
-            </div>
-            {error && <p className="text-sm text-red-500">{error}</p>}
-            <Button type="submit" className="w-full" disabled={loading}>
-              {mode === 'login' ? 'Přihlásit se' : 'Registrovat se'}
-            </Button>
-          </form>
+          )}
+          <div className="space-y-1.5">
+            <Label htmlFor="email" className="text-xs font-semibold uppercase tracking-wider text-slate-600">Email</Label>
+            <Input id="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} required className="bg-white/70" />
+          </div>
+          <div className="space-y-1.5">
+            <Label htmlFor="password" className="text-xs font-semibold uppercase tracking-wider text-slate-600">Heslo</Label>
+            <Input id="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} required className="bg-white/70" />
+          </div>
+          {error && (
+            <p className="text-sm text-rose-600 bg-rose-50 border border-rose-200 rounded-xl px-3 py-2">{error}</p>
+          )}
           <button
-            onClick={() => { setMode(mode === 'login' ? 'register' : 'login'); setError(null) }}
-            className="mt-4 text-sm text-gray-500 hover:text-gray-700 w-full text-center"
+            type="submit"
+            disabled={loading}
+            className="w-full py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 active:bg-emerald-700 text-white font-semibold transition-all duration-150 shadow-sm shadow-emerald-200 disabled:opacity-60"
           >
-            {mode === 'login' ? 'Nemáš účet? Zaregistruj se' : 'Už máš účet? Přihlas se'}
+            {loading ? '...' : mode === 'login' ? 'Přihlásit se' : 'Registrovat se'}
           </button>
-        </CardContent>
-      </Card>
+        </form>
+      </div>
     </div>
   )
 }
