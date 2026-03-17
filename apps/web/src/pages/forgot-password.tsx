@@ -29,37 +29,37 @@ export default function ForgotPasswordPage() {
   return (
     <div className="min-h-screen flex items-center justify-center p-4">
       <div className="glass-card rounded-2xl w-full max-w-sm p-8">
-        <button onClick={() => navigate('/login')} className="text-xs text-emerald-600 hover:text-emerald-700 font-medium mb-6 flex items-center gap-1">
+        <button onClick={() => navigate('/login')} className="text-xs text-yellow-400/60 hover:text-yellow-400 font-medium mb-6 flex items-center gap-1 transition-colors">
           ← Zpět na přihlášení
         </button>
 
-        <h2 className="text-xl font-bold text-slate-800 mb-1">Zapomenuté heslo</h2>
-        <p className="text-sm text-slate-500 mb-6">Zadej svůj email a pošleme ti odkaz pro reset hesla.</p>
+        <h2 className="text-xl font-bold text-yellow-50 mb-1">Zapomenuté heslo</h2>
+        <p className="text-sm text-yellow-200/50 mb-6">Zadej svůj email a pošleme ti odkaz pro reset hesla.</p>
 
         {sent ? (
-          <div className="bg-emerald-50 border border-emerald-200 rounded-xl px-4 py-3 text-sm text-emerald-700">
+          <div className="bg-yellow-400/10 border border-yellow-400/20 rounded-xl px-4 py-3 text-sm text-yellow-300">
             ✓ Email odeslán! Zkontroluj svou schránku.
           </div>
         ) : (
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-1.5">
-              <Label htmlFor="email" className="text-xs font-semibold uppercase tracking-wider text-slate-600">Email</Label>
+              <Label htmlFor="email" className="text-xs font-semibold uppercase tracking-wider text-yellow-200/60">Email</Label>
               <Input
                 id="email"
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="bg-white/70"
+                className="bg-yellow-400/5 border-yellow-400/15 text-yellow-50 placeholder:text-yellow-200/25"
               />
             </div>
             {error && (
-              <p className="text-sm text-rose-600 bg-rose-50 border border-rose-200 rounded-xl px-3 py-2">{error}</p>
+              <p className="text-sm text-rose-400 bg-rose-400/10 border border-rose-400/20 rounded-xl px-3 py-2">{error}</p>
             )}
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-semibold transition-all shadow-sm shadow-emerald-200 disabled:opacity-60"
+              className="w-full py-2.5 rounded-xl bg-yellow-400 hover:bg-yellow-300 text-black font-bold transition-all shadow-sm shadow-yellow-400/20 disabled:opacity-60"
             >
               {loading ? '...' : 'Odeslat odkaz'}
             </button>

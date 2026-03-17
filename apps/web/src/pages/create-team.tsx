@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { useAuth } from '@/contexts/AuthContext'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { MakopLogo } from '@/components/MakopLogo'
 
 export default function CreateTeamPage() {
   const { session, refreshProfile } = useAuth()
@@ -37,29 +38,29 @@ export default function CreateTeamPage() {
     <div className="min-h-screen flex items-center justify-center p-4">
       <div className="glass-card rounded-2xl w-full max-w-sm p-8">
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-black tracking-widest uppercase glow-text mb-1">Makop</h1>
-          <p className="text-xs text-emerald-600 tracking-widest uppercase font-medium">Vytvoř svůj tým</p>
+          <MakopLogo className="text-4xl" />
+          <p className="text-xs text-yellow-400/60 tracking-widest uppercase font-medium mt-1">Vytvoř svůj tým</p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-1.5">
-            <Label htmlFor="name" className="text-xs font-semibold uppercase tracking-wider text-slate-600">Název týmu</Label>
+            <Label htmlFor="name" className="text-xs font-semibold uppercase tracking-wider text-yellow-200/60">Název týmu</Label>
             <Input
               id="name"
               placeholder="FC Makop"
               value={name}
               onChange={(e) => setName(e.target.value)}
               required
-              className="bg-white/70"
+              className="bg-yellow-400/5 border-yellow-400/15 text-yellow-50 placeholder:text-yellow-200/25"
             />
           </div>
           {error && (
-            <p className="text-sm text-rose-600 bg-rose-50 border border-rose-200 rounded-xl px-3 py-2">{error}</p>
+            <p className="text-sm text-rose-400 bg-rose-400/10 border border-rose-400/20 rounded-xl px-3 py-2">{error}</p>
           )}
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-semibold transition-all duration-150 shadow-sm shadow-emerald-200 disabled:opacity-60"
+            className="w-full py-2.5 rounded-xl bg-yellow-400 hover:bg-yellow-300 text-black font-bold transition-all duration-150 shadow-sm shadow-yellow-400/20 disabled:opacity-60"
           >
             {loading ? 'Vytváření...' : 'Vytvořit tým'}
           </button>
